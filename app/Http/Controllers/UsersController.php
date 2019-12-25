@@ -9,6 +9,13 @@ use App\Handlers\ImageUploadHandler;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        //顾虑未登录用户
+        $this->middleware('auth', ['except' => ['show']]);
+    }
+
+
 	//展示个人中心
    	public function show(User $user)
     {
@@ -18,12 +25,14 @@ class UsersController extends Controller
     //编辑资料显示
     public function edit(User $user){
 
+        $this->authorize('update', $user);
     	return view('users.edit', compact('user'));
     }
 
     //处理编辑请求
     public function update(UserRequest $request, ImageUploadHandler $uploader, User $user){
 
+        $this->authorize('update', $user);
         $data = $request->all();
 
         if ($request->avatar) {
