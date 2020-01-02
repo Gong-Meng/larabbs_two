@@ -8,6 +8,12 @@ class Topic extends Model
         'title', 'body', 'category_id', 'excerpt', 'slug'
     ];
 
+    //url seo优化
+    public function link($params = [])
+    {
+        return route('topics.show', array_merge([$this->id, $this->slug], $params));
+    }
+
     //关联分类
     public function category()
     {
