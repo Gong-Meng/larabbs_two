@@ -50,3 +50,6 @@ Route::post('upload_image', 'TopicsController@uploadImage')->name('topics.upload
 
 //话题路由seo
 Route::get('topics/{topic}/{slug?}', 'TopicsController@show')->name('topics.show');
+
+//回复资源路由
+Route::resource('replies', 'RepliesController', ['only' => ['index', 'show', 'create', 'store', 'update', 'edit', 'destroy']]);

@@ -8,6 +8,13 @@ class Topic extends Model
         'title', 'body', 'category_id', 'excerpt', 'slug'
     ];
 
+    //关联回复
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
+
     //url seo优化
     public function link($params = [])
     {
