@@ -33,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
         //注册观察器
         Topic::observe(TopicObserver::class);
         Reply::observe(ReplyObserver::class);
+        \App\Models\Link::observe(\App\Observers\LinkObserver::class);
     }
 }
