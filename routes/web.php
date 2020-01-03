@@ -53,3 +53,6 @@ Route::get('topics/{topic}/{slug?}', 'TopicsController@show')->name('topics.show
 
 //回复资源路由
 Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]);
+
+//通知信息
+Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
