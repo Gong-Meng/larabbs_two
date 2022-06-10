@@ -7,6 +7,7 @@ use App\Models\Reply;
 use App\Observers\TopicObserver;
 use App\Observers\ReplyObserver;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,5 +35,6 @@ class AppServiceProvider extends ServiceProvider
         Topic::observe(TopicObserver::class);
         Reply::observe(ReplyObserver::class);
         \App\Models\Link::observe(\App\Observers\LinkObserver::class);
+        JsonResource::withoutWrapping();
     }
 }
