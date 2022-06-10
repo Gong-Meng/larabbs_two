@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.0",
         "mews/captcha": "~3.0",
         "mews/purifier": "~3.0",
+        "overtrue/easy-sms": "^2.2",
         "overtrue/laravel-lang": "~3.0",
         "overtrue/pinyin": "~4.0",
         "predis/predis": "~1.1",
@@ -38,7 +39,8 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "secure-http": false
     },
     "extra": {
         "laravel": {
@@ -75,5 +77,11 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://mirrors.cloud.tencent.com/composer/"
+        }
     }
 }
