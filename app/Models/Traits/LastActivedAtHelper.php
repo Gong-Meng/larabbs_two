@@ -2,7 +2,7 @@
 
 namespace App\Models\Traits;
 
-use Redis;
+use Illuminate\Support\Facades\Redis;
 use Carbon\Carbon;
 
 trait LastActivedAtHelper
@@ -10,7 +10,7 @@ trait LastActivedAtHelper
     // 缓存相关
     protected $hash_prefix = 'larabbs_last_actived_at_';
     protected $field_prefix = 'user_';
-    
+
     public function recordLastActivedAt()
     {
         // 获取今日 Redis 哈希表名称，如：larabbs_last_actived_at_2017-10-21
