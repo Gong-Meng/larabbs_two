@@ -97,4 +97,7 @@ return [
         ],
     ],
 
+    'query' => [
+        'enabled' => true
+    ]
 ];
