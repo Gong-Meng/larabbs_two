@@ -8,6 +8,7 @@ use App\Http\Resources\TopicResource;
 use App\Http\Requests\Api\TopicRequest;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
+use App\Http\Queries\TopicQuery;
 
 class TopicsController extends Controller
 {
@@ -49,5 +50,11 @@ class TopicsController extends Controller
             ->paginate();
 
         return TopicResource::collection($topics);
+    }
+
+    public function show($topicId, TopicQuery $query)
+    {
+        $topic = $query->findOrFail($topicId);
+        return new TopicResource($topic);
     }
 }
