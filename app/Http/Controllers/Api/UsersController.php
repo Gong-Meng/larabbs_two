@@ -63,4 +63,21 @@ class UsersController extends Controller
 
         return (new UserResource($user))->showSensitiveFields();
     }
+
+
+    public function userIndex(Request $request, User $user)
+    {
+        $query = $user->topics()->getQuery();
+
+        $topics = QueryBuilder::for($query)
+            ->allowedIncludes('user', 'category')
+            ->allowedFilters([
+                'title',
+                AllowedFilter::exact('category_id'),
+                AllowedFilter::scope('withOrder')->default('recentReplied'),
+            ])
+            ->paginate();
+
+        return TopicResource::collection($topics);
+    }
 }

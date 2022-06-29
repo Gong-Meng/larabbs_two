@@ -6,6 +6,8 @@ use App\Models\Topic;
 use Illuminate\Http\Request;
 use App\Http\Resources\TopicResource;
 use App\Http\Requests\Api\TopicRequest;
+use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 class TopicsController extends Controller
 {
@@ -33,5 +35,19 @@ class TopicsController extends Controller
         $topic->delete();
 
         return response(null, 204);
+    }
+
+    public function index(Request $request, Topic $topic)
+    {
+        $topics = QueryBuilder::for(Topic::class)
+            ->allowedIncludes('user', 'category')
+            ->allowedFilters([
+                'title',
+                AllowedFilter::exact('category_id'),
+                AllowedFilter::scope('withOrder')->default('recentReplied'),
+            ])
+            ->paginate();
+
+        return TopicResource::collection($topics);
     }
 }
