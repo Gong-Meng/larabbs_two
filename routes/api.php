@@ -32,6 +32,10 @@ Route::prefix('v1')
             // 用户注册
             Route::post('users', 'UsersController@store')
                 ->name('users.store');
+            // 第三方登录
+            Route::post('socials/{social_type}/authorizations', 'AuthorizationsController@socialStore')
+                ->where('social_type', 'wechat')
+                ->name('socials.authorizations.store');
             // 图片验证码
             Route::post('captchas', 'CaptchasController@store')
                 ->name('captchas.store');
