@@ -62,6 +62,10 @@ Route::prefix('v1')
             // 分类列表
             Route::get('categories', 'CategoriesController@index')
                 ->name('categories.index');
+            // 话题列表，详情
+            Route::resource('topics', 'TopicsController')->only([
+                'index', 'show'
+            ]);
 
             // 登录后可以访问的接口
             Route::middleware('auth:api')->group(function() {
@@ -74,6 +78,10 @@ Route::prefix('v1')
                 // 编辑登录用户信息
                 Route::patch('user', 'UsersController@update')
                     ->name('user.update');
+                // 发布话题
+                Route::resource('topics', 'TopicsController')->only([
+                    'store', 'update', 'destroy'
+                ]);
             });
         });
 });
