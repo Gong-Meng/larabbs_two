@@ -8,8 +8,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Auth;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Authenticatable implements  MustVerifyEmailContract
+class User extends Authenticatable implements  MustVerifyEmailContract, JWTSubject
 {
     use MustVerifyEmailTrait, HasRoles,Traits\ActiveUserHelper,Traits\LastActivedAtHelper;
 
@@ -40,12 +41,8 @@ class User extends Authenticatable implements  MustVerifyEmailContract
      * @var array
      */
     protected $fillable = [
-        'name',
-        'phone',
-        'email',
-        'password',
-        'introduction',
-        'avatar',
+        'name', 'phone', 'email', 'password', 'introduction', 'avatar',
+        'weixin_openid', 'weixin_unionid'
     ];
 
     /**
@@ -54,7 +51,7 @@ class User extends Authenticatable implements  MustVerifyEmailContract
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'weixin_openid', 'weixin_unionid'
     ];
 
     /**
@@ -121,5 +118,15 @@ class User extends Authenticatable implements  MustVerifyEmailContract
         }
 
         $this->attributes['avatar'] = $path;
+    }
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }
