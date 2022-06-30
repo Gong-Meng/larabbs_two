@@ -97,6 +97,9 @@ Route::prefix('v1')
                 // 某个用户的回复列表
                 Route::get('users/{user}/replies', 'RepliesController@userIndex')
                     ->name('users.replies.index');
+                // 通知列表
+                Route::get('notifications', 'NotificationsController@index')
+                    ->name('notifications.index');
             });
         });
 });
