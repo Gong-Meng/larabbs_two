@@ -80,4 +80,10 @@ class UsersController extends Controller
 
         return TopicResource::collection($topics);
     }
+
+    public function activedIndex(User $user)
+    {
+        UserResource::wrap('data');
+        return UserResource::collection($user->getActiveUsers());
+    }
 }
