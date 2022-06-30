@@ -9,10 +9,12 @@ use Illuminate\Auth\MustVerifyEmail as MustVerifyEmailTrait;
 use Auth;
 use Spatie\Permission\Traits\HasRoles;
 use Tymon\JWTAuth\Contracts\JWTSubject;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable implements  MustVerifyEmailContract, JWTSubject
 {
     use MustVerifyEmailTrait, HasRoles,Traits\ActiveUserHelper,Traits\LastActivedAtHelper;
+    use HasApiTokens;
 
     //重写trait里面的notify方法
     use Notifiable {
@@ -128,5 +130,14 @@ class User extends Authenticatable implements  MustVerifyEmailContract, JWTSubje
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function findForPassport($username)
+    {
+        filter_var($username, FILTER_VALIDATE_EMAIL) ?
+            $credentials['email'] = $username :
+            $credentials['phone'] = $username;
+
+        return self::where($credentials)->first();
     }
 }
